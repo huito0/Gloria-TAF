@@ -1,6 +1,6 @@
 package CLIOptions;
 
-import DriverManager.DriverType;
+import DriverManager.Browser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import static Logger.Log.info;
 import static Logger.Log.warn;
 
 public final class GlobalConfig {
-    private static DriverType driverType = null;
+    private static Browser browserType = null;
     private static int timeout = 0;
     private static List<String> tags = new ArrayList<>();
     private static List<String> glues = null;
@@ -23,9 +23,9 @@ public final class GlobalConfig {
     public static void parseOptions(String[] args) {
         for (int i = 0; i < args.length - 1; i++) {
             switch (args[i]) {
-                case "--driver":
-                    driverType = DriverType.valueOf(args[++i]);
-                    info("Driver type is " + driverType.name());
+                case "--browser":
+                    browserType = Browser.valueOf(args[++i].toUpperCase());
+                    info("Driver type is " + browserType.name());
                     break;
                 case "--timeout":
                     timeout = Integer.parseInt(args[++i]);
@@ -50,12 +50,12 @@ public final class GlobalConfig {
         }
     }
 
-    public static DriverType getDriverType() {
-        if (driverType == null) {
+    public static Browser getBrowserType() {
+        if (browserType == null) {
             warn("You didn't set [--driver] option in program args, so CHROME will be used by default");
-            driverType = DriverType.CHROME;
+            browserType = Browser.CHROME;
         }
-        return driverType;
+        return browserType;
     }
 
     public static int getTimeout() {

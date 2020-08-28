@@ -11,16 +11,16 @@ public final class GlobalDriverManager {
     private GlobalDriverManager() {
     }
 
-    private static void setupDriver(DriverType driverType) {
-        driverType.getDriverManager().setup();
-        driver.set(driverType.getDriverObject());
+    private static void setupDriver(Browser browser) {
+        browser.getDriverManager().setup();
+        driver.set(browser.getDriverObject());
         driver.get().manage().window().maximize();
     }
 
     public static WebDriver getDriver() {
         if (driver.get() == null) {
-            info("Setting up new instance of " + GlobalConfig.getDriverType().name().toLowerCase() + " WebDriver");
-            setupDriver(GlobalConfig.getDriverType());
+            info("Setting up new instance of " + GlobalConfig.getBrowserType().name().toLowerCase() + " WebDriver");
+            setupDriver(GlobalConfig.getBrowserType());
             info("New instance of driver is ready to use");
         }
         return driver.get();
@@ -28,7 +28,7 @@ public final class GlobalDriverManager {
 
     public static void destroyDriver() {
         if (driver.get() != null) {
-            info("Destroying instance of " + GlobalConfig.getDriverType().name().toLowerCase() + " driver");
+            info("Destroying instance of " + GlobalConfig.getBrowserType().name().toLowerCase() + " driver");
             driver.get().quit();
             driver.set(null);
             info("Driver has been destroyed");
