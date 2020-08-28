@@ -12,6 +12,9 @@ public final class GlobalConfig {
     private static DriverType driverType = null;
     private static int timeout = 0;
     private static List<String> tags = null;
+    private static List<String> glues = null;
+    private static List<String> plugins = null;
+    private static String featurePath = null;
 
     private GlobalConfig() {
     }
@@ -21,12 +24,24 @@ public final class GlobalConfig {
             switch (args[i]) {
                 case "--driver":
                     driverType = DriverType.valueOf(args[++i]);
+                    info("Driver type is " + driverType.name());
                     break;
                 case "--timeout":
                     timeout = Integer.parseInt(args[++i]);
+                    info("Timeout is " + timeout);
                     break;
                 case "--tags":
                     tags = Arrays.asList(args[++i].split(","));
+                    info("tags are " + tags);
+                    break;
+                case "--glue":
+                    glues = Arrays.asList(args[++i].split(","));
+                    break;
+                case "--plugin":
+                    plugins = Arrays.asList(args[++i].split(","));
+                    break;
+                case "--features":
+                    featurePath = args[++i];
                     break;
                 default:
                     throw new RuntimeException("Unexpected program argument");
@@ -56,5 +71,28 @@ public final class GlobalConfig {
             tags.add("@Regression");
         }
         return tags;
+    }
+
+    public static List<String> getGlues() {
+        if (glues.size() == 0) {
+            warn("You have to set glue path!");
+            throw new RuntimeException("No glue path was set");
+        }
+        return glues;
+    }
+
+    public static List<String> getPlugins() {
+        if (plugins.size() == 0) {
+            info("No one plugin was set, only default plugins will be used");
+        }
+        return plugins;
+    }
+
+    public static String getFeaturePath() {
+        if (featurePath == null) {
+            warn("You have to set feature path!");
+            throw new RuntimeException("No feature path was set");
+        }
+        return featurePath;
     }
 }
