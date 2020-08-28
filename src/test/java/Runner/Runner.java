@@ -14,9 +14,7 @@ public class Runner {
     }
 
     private static String[] getCucumberOptions() {
-        List<String> cucumberOptions = new ArrayList<>();
-
-        cucumberOptions.addAll(getGluesConfiguration());
+        List<String> cucumberOptions = new ArrayList<>(getGluesConfiguration());
         cucumberOptions.addAll(getPluginsConfiguration());
         cucumberOptions.addAll(getTags());
         cucumberOptions.add(GlobalConfig.getFeaturePath());
@@ -34,7 +32,7 @@ public class Runner {
     }
 
     private static List<String> getPluginsConfiguration() {
-        if (GlobalConfig.getPlugins().size() == 0) {
+        if (GlobalConfig.getPlugins() == null) {
             return new ArrayList<>();
         }
         List<String> plugins = new ArrayList<>();

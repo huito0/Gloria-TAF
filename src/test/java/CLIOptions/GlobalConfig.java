@@ -82,7 +82,7 @@ public final class GlobalConfig {
     }
 
     public static List<String> getPlugins() {
-        if (plugins.size() == 0) {
+        if (plugins == null) {
             info("No one plugin was set, only default plugins will be used");
         }
         return plugins;
