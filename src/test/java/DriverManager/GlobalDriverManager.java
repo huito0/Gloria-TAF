@@ -27,9 +27,13 @@ public final class GlobalDriverManager {
     }
 
     public static void destroyDriver() {
-        info("Destroying instance of " + GlobalConfig.getDriverType().name().toLowerCase() + " driver");
-        driver.get().quit();
-        driver.set(null);
-        info("Driver has been destroyed");
+        if (driver.get() != null) {
+            info("Destroying instance of " + GlobalConfig.getDriverType().name().toLowerCase() + " driver");
+            driver.get().quit();
+            driver.set(null);
+            info("Driver has been destroyed");
+        } else {
+            info("Driver isn't opened, so nothing to close");
+        }
     }
 }

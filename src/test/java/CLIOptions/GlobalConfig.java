@@ -2,6 +2,7 @@ package CLIOptions;
 
 import DriverManager.DriverType;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import static Logger.Log.warn;
 public final class GlobalConfig {
     private static DriverType driverType = null;
     private static int timeout = 0;
-    private static List<String> tags = null;
+    private static List<String> tags = new ArrayList<>();
     private static List<String> glues = null;
     private static List<String> plugins = null;
     private static String featurePath = null;
