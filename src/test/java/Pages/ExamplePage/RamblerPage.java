@@ -14,7 +14,7 @@ import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory
 public class RamblerPage extends AbstractPage {
     public static final String URL = "https://www.rambler.ru";
 
-    @FindBy(xpath = "//*[contains(@data-logo, 'header::logo_rambler')]")
+    @FindBy(xpath = "//*[contains(@data-logo, 'header')]")
     private HtmlElement logo;
 
     public RamblerPage() {
