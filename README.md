@@ -2,17 +2,17 @@
 
 #### Для запуска необходимо установить следующие аргументы в параметры запуска:
 
---glue
-StepDefs,BaseTest
---plugin
-json:target/cucumber/cucumber-json-report.json,BaseTest.BaseTest
---browser
-chrome
---tags
-@Example
---timeout
-60
---features
+--glue\
+StepDefs,BaseTest\
+--plugin\
+pretty,junit:target/allure-report/output.xml,json:target/cucumber-reporting/output.json,BaseTest.BaseTest\
+--browser\
+chrome\
+--tags\
+@Example\
+--timeout\
+15\
+--features\
 src/test/resources/Features
 
 glue - относительный путь к пакету, в котором хранятся Степ Дефинишены

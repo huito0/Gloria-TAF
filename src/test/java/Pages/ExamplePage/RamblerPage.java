@@ -11,6 +11,8 @@ import ru.yandex.qatools.htmlelements.element.HtmlElement;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
 import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
+import static Logger.Log.info;
+
 public class RamblerPage extends AbstractPage {
     public static final String URL = "https://www.rambler.ru";
 
@@ -23,6 +25,7 @@ public class RamblerPage extends AbstractPage {
 
     @Override
     public void waitForPageLoadedCompletely() {
+        info("Wait for home page loaded completely");
         new WebDriverWait(GlobalDriverManager.getDriver(), GlobalConfig.getTimeout())
                 .until((ExpectedCondition<Boolean>) d -> logo.isDisplayed());
     }

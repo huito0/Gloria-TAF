@@ -10,6 +10,9 @@ import static Logger.Log.info;
 import static Logger.Log.warn;
 
 public final class GlobalConfig {
+    //TODO make this appropriate to your project
+    public static final String PROJECT_NAME = "Gloria-TAF";
+
     private static Browser browserType = null;
     private static int timeout = 0;
     private static List<String> tags = new ArrayList<>();
