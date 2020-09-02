@@ -38,7 +38,7 @@ public class RamblerStepDefs extends AbstractStepDefs {
         Assert.fail();
     }
 
-    @When("^I mark step as pending#")
+    @When("^I mark step as pending$")
     public void whenIMarkStepAsPending() {
         throw new PendingException("Just mark scenario as pending");
     }

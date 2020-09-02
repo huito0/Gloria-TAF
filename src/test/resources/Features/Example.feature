@@ -35,7 +35,7 @@ Then I check that page is opened
 Scenario: Open rambler page 6
 Given I open Rambler Page
 When I simulate work process
-And I mark step as pending#
+And I mark step as pending
 Then I check that page is opened
 
 @OpenPageExample6
