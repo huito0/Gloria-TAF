@@ -1,6 +1,6 @@
 package Logger;
 
-import io.cucumber.java.Scenario;
+import io.cucumber.core.api.Scenario;
 
 import java.util.function.Consumer;
 

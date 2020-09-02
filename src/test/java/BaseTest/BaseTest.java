@@ -2,11 +2,11 @@ package BaseTest;
 
 import Logger.Log;
 import Report.CucumberReport;
+import cucumber.api.event.ConcurrentEventListener;
+import io.cucumber.core.api.Scenario;
 import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
-import io.cucumber.plugin.ConcurrentEventListener;
-import io.cucumber.plugin.event.EventPublisher;
-import io.cucumber.plugin.event.TestRunFinished;
+import  cucumber.api.event.EventPublisher;
+import  cucumber.api.event.TestRunFinished;
 
 public class BaseTest implements ConcurrentEventListener {
     @Override

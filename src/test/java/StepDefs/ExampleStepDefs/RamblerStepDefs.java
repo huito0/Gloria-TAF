@@ -3,7 +3,7 @@ package StepDefs.ExampleStepDefs;
 import DriverManager.GlobalDriverManager;
 import Pages.ExamplePage.RamblerPage;
 import StepDefs.AbstractStepDefs;
-import io.cucumber.java.PendingException;
+import cucumber.api.PendingException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
