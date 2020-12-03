@@ -30,7 +30,7 @@ public class RamblerStepDefs extends AbstractStepDefs {
     @Then("I check that page is opened")
     public void thenICheckThatPageOpened() {
         info("check that Rambler logo is visible");
-        Assert.assertTrue("Rambler logo should be displayed", onRamblerPage().isLogoVisible());;
+        Assert.assertTrue("Rambler logo should be displayed", onRamblerPage().isLogoVisible());
     }
 
     @When("^I fail scenario$")
