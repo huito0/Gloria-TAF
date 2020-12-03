@@ -1,10 +1,14 @@
 package Logger;
 
+import CLIOptions.GlobalConfig;
 import io.cucumber.core.api.Scenario;
 
 import java.util.function.Consumer;
 
 public final class Log {
+    private Log() {
+    }
+
     private static Scenario scenario;
     private static final Consumer<String> writer = m -> {
         if (scenario != null) {
@@ -15,15 +19,15 @@ public final class Log {
     };
 
     public static void warn(String msg) {
-        writer.accept("[WARN] " + msg);
+        writer.accept(GlobalConfig.getFormattedCurrentDateAndTime() + " [WARN] " + msg);
     }
 
     public static void info(String msg) {
-        writer.accept("[INFO] " + msg);
+        writer.accept(GlobalConfig.getFormattedCurrentDateAndTime() + " [INFO] " + msg);
     }
 
     public static void trace(String msg) {
-        writer.accept("[TRACE] " + msg);
+        writer.accept(GlobalConfig.getFormattedCurrentDateAndTime() + " [TRACE] " + msg);
     }
 
     public static void setScenario(Scenario scenario) {

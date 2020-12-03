@@ -1,6 +1,10 @@
 package StepDefs;
 
+import CLIOptions.GlobalConfig;
+import DriverManager.GlobalDriverManager;
 import Pages.ExamplePage.RamblerPage;
+
+import static Logger.Log.info;
 
 public abstract class AbstractStepDefs {
     //>> example
@@ -13,4 +17,10 @@ public abstract class AbstractStepDefs {
         return ramblerPage.get();
     }
     //<< example
+
+    protected void openPage(String path) {
+        String url = GlobalConfig.getEnvironment().getHostAddress() + path;
+        GlobalDriverManager.getDriver().get(url);
+        info("Open page with path: " + url);
+    }
 }

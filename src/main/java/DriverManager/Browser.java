@@ -1,5 +1,6 @@
 package DriverManager;
 
+import CLIOptions.GlobalConfig;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,7 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.util.function.Supplier;
 
 public enum Browser {
-    CHROME(WebDriverManager::chromedriver, ChromeDriver::new),
+    CHROME(WebDriverManager::chromedriver, () -> new ChromeDriver(GlobalConfig.getChromeOptions())),
     FIREFOX(WebDriverManager::firefoxdriver, FirefoxDriver::new);
 
     private Supplier<WebDriverManager> driverFactory;

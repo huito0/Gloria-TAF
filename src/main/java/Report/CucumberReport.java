@@ -15,9 +15,9 @@ import java.util.List;
 
 public class CucumberReport {
     public static void build() {
-        File reportOutputDirectory = new File("target");
+        File reportOutputDirectory = new File(GlobalConfig.getEnvironment().getOuputPath());
         List<String> jsonFiles = new ArrayList<>();
-        jsonFiles.add("target/cucumber-reporting/output.json");
+        jsonFiles.add(GlobalConfig.getEnvironment().getOuputPath() + "/cucumber-reporting/output.json");
 
         Configuration configuration = new Configuration(reportOutputDirectory, GlobalConfig.PROJECT_NAME);
         // optional configuration - check javadoc for details

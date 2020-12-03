@@ -4,13 +4,42 @@ import CLIOptions.GlobalConfig;
 import io.cucumber.core.cli.Main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Runner {
     public static void main(String[] args) {
-        GlobalConfig.parseOptions(args);
+        List<String> programmArgs = getHardcodedConfiguration();
+        programmArgs.addAll(Arrays.asList(args));
+
+        GlobalConfig.parseOptions(programmArgs);
+
+        // This method is workaround to add plugins,
+        // owing to we have to know what environment is used to set json output path
+        setCucumberPlugins();
 
         Main.main(getCucumberOptions());
+    }
+
+    private static List<String> getHardcodedConfiguration() {
+        List<String> hardcodedPresetOptions = new ArrayList<>();
+        hardcodedPresetOptions.add("--glue");
+        hardcodedPresetOptions.add("StepDefs,BaseTest");
+        hardcodedPresetOptions.add("--features");
+        hardcodedPresetOptions.add("src/main/resources/Features");
+        return hardcodedPresetOptions;
+    }
+
+    private static void setCucumberPlugins() {
+        List<String> pluginsOptions = new ArrayList<>();
+
+        pluginsOptions.add("--plugin");
+        pluginsOptions.add("pretty," +
+                "json:" + GlobalConfig.getEnvironment().getOuputPath() + "/cucumber-reporting/output.json," +
+                "BaseTest.BaseTest," +
+                "Report.ScreenshotPublisher");
+
+        GlobalConfig.parseOptions(pluginsOptions);
     }
 
     private static String[] getCucumberOptions() {

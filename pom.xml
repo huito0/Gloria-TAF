@@ -9,13 +9,21 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <!-- we have to use 3.14.0 version of selenium because newest selenium version doesn't have ui.Clock class which is required to HtmlElements -->
+        <selenium.version>3.14.0</selenium.version>
+        <webdrivermanager.version>4.2.2</webdrivermanager.version>
         <cucumber.version>4.8.1</cucumber.version>
-        <webdrivermanager.version>4.1.0</webdrivermanager.version>
-        <selenium.version>3.5.1</selenium.version>
+        <htmlelements.version>1.19</htmlelements.version>
         <slf4j.version>1.7.30</slf4j.version>
         <cucumber-reporting.version>5.3.0</cucumber-reporting.version>
-        <aspectj.version>1.8.10</aspectj.version>
-        <allure.version>2.13.5</allure.version>
+        <ashot.vesion>1.5.4</ashot.vesion>
+        <poi.version>3.17</poi.version>
+        <assertj.version>3.18.1</assertj.version>
+
+        <surefire.version>2.22.2</surefire.version>
+        <compiler.version>3.8.1</compiler.version>
+        <java.version>1.8</java.version>
+        <shade.version>2.1</shade.version>
     </properties>
 
     <dependencies>
@@ -36,26 +44,23 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>${cucumber.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
             <version>${cucumber.version}</version>
-            <scope>test</scope>
         </dependency>
         <!-- HTML Elements -->
         <dependency>
             <groupId>ru.yandex.qatools.htmlelements</groupId>
             <artifactId>htmlelements-all</artifactId>
-            <version>1.19</version>
+            <version>${htmlelements.version}</version>
         </dependency>
         <!-- SLF4J -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j.version}</version>
-            <scope>test</scope>
         </dependency>
         <!-- Cucumber-reporting -->
         <dependency>
@@ -63,35 +68,76 @@
             <artifactId>cucumber-reporting</artifactId>
             <version>${cucumber-reporting.version}</version>
         </dependency>
-        <!-- Allure -->
+        <!-- AShot -->
         <dependency>
-            <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-cucumber4-jvm</artifactId>
-            <version>${allure.version}</version>
+            <groupId>ru.yandex.qatools.ashot</groupId>
+            <artifactId>ashot</artifactId>
+            <version>${ashot.vesion}</version>
+        </dependency>
+        <!-- POI for XLSX parsing -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+        <!-- Soft Assertions -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.version}</version>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${compiler.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20</version>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>${shade.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
-                    <systemPropertyVariables>
-                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
-                        <allure.link.issue.pattern>https://example.org/browse/{}</allure.link.issue.pattern>
-                        <allure.link.tms.pattern>https://example.org/browse/{}</allure.link.tms.pattern>
-                    </systemPropertyVariables>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>TestRunner.TestRunner</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>

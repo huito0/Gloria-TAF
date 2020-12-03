@@ -4,12 +4,9 @@ import CLIOptions.GlobalConfig;
 import DriverManager.GlobalDriverManager;
 import Pages.AbstractPage;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
-import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementDecorator;
-import ru.yandex.qatools.htmlelements.loader.decorator.HtmlElementLocatorFactory;
 
 import static Logger.Log.info;
 
@@ -18,10 +15,6 @@ public class RamblerPage extends AbstractPage {
 
     @FindBy(xpath = "//*[contains(@data-logo, 'header')]")
     private HtmlElement logo;
-
-    public RamblerPage() {
-        PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(GlobalDriverManager.getDriver())), this);
-    }
 
     @Override
     public void waitForPageLoadedCompletely() {
